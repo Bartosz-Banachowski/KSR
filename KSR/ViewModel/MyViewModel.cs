@@ -44,14 +44,14 @@ namespace KSR.ViewModel
         #endregion
 
         #region Functions
-        private void LoadReuters()
+        private async void LoadReuters()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Sgm File(*.sgm)| *.sgm";
             openFileDialog.Multiselect = true;
             openFileDialog.ShowDialog();
             string[] path = openFileDialog.FileNames;
-            Reuters = Reut.GetReutersFromFile(path);
+            Reuters = await Reut.GetReutersFromFileAsync(path);
         }
         #endregion
     }
