@@ -12,7 +12,7 @@ namespace KSR.Model
         {
             List<Dictionary<string, double>> TrainingVectors = new List<Dictionary<string, double>>();
             List<Dictionary<string, double>> TestVectors = new List<Dictionary<string, double>>();
-            double distance = 0;
+
             for (int i=0; i < AllReuters.ElementAt(0).Count; i++)
             {
                 TrainingVectors.Add(AllReuters.ElementAt(0).ElementAt(i).VectorFeatures);
@@ -21,24 +21,34 @@ namespace KSR.Model
             {
                 TestVectors.Add(AllReuters.ElementAt(1).ElementAt(i).VectorFeatures);
             }
+           // Dictionary<Dictionary<string, double>, List<double>>
+            List<double> res = CalculateEuclideanMetricForOneTestSet(TestVectors.ElementAt(0), TrainingVectors);
+        }
 
-            int howManyTrainingVectors = AllReuters.ElementAt(0).Count;
-            int howManyTestVectors = AllReuters.ElementAt(1).Count;
-            int bla = TestVectors.ElementAt(0).Count;
-            List<List<double>> DistanceBetweenTestAndTrainingVectors = new List<List<double>>();
-
-            for (int i = 0; i < howManyTestVectors; i++)
+        public static List<Double> CalculateEuclideanMetricForOneTestSet(Dictionary<string,double> testSet, List<Dictionary<string,double>> TrainingVectors)
+        {
+            double xn = 0;
+            double yn = 0;
+            double underSqrt = 0;
+            List<double> result = new List<double>();
+            for (int i = 0; i < TrainingVectors.Count; i++) //wykonujemy petle dla kazdego wzorca treningowego
             {
-                for (int j = 0; j < howManyTrainingVectors; j++)
+                for (int j = 0; j < testSet.Count; j++) //sprawdzamy dla kazdego slowa z wektora testowego czy istnieje takie slowo w wektorze treningowym
                 {
-                    for( int k = 0; k < TestVectors.ElementAt(i).Count; k++)
+                    if (TrainingVectors.ElementAt(i).ContainsKey(testSet.ElementAt(j).Key))
                     {
-                    //    distance += TestVectors.ElementAt(i) - 
+                        yn = TrainingVectors.ElementAt(i)[testSet.ElementAt(j).Key];
+                    } else
+                    {
+                        yn = 0;
                     }
-                   // for()
-                   // var distance = TestVectors.ElementAt(i).E// - TrainingVectors.ElementAt(j).Values;
+                    xn = testSet.ElementAt(j).Value;
+                    underSqrt += Math.Pow(xn - yn, 2);
                 }
+                result.Add(Math.Sqrt(underSqrt));
+                underSqrt = 0;
             }
+            return result;
         }
     }
 }
