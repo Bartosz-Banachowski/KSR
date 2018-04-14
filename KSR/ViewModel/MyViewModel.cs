@@ -89,12 +89,12 @@ namespace KSR.ViewModel
             Reuters = await Model.Reuter.GetReutersFromFileAsync(path);
             AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSet, Reuters);
 
-            if (ChosenExtractFeature == "Euclidean Metric")
+            if (ChosenExtractFeature.Equals("Euclidean Metric"))
             {
                 await EuclideanMetric.CalculateAsync(AllReuters);
                 MessageBox.Show("Done");
             }
-            else if (ChosenExtractFeature == "Manhattan Metric")
+            else if (ChosenExtractFeature.Equals("Manhattan Metric"))
             {
                 await ManhattanMetric.CalculateAsync(AllReuters);
                 MessageBox.Show("Done");

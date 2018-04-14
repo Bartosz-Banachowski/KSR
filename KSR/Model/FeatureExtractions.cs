@@ -28,7 +28,7 @@ namespace KSR.Model
                     }
                 }
                 if (vectorFeature.ContainsKey(reut.Text.ElementAt(i))) continue;
-                if (reut.Text.ElementAt(i) == "") continue;
+                if (reut.Text.ElementAt(i).Equals("")) continue;
                 vectorFeature.Add(reut.Text.ElementAt(i), (double)howManyTimeWordOccur / reut.Text.Count);
             }
             reut.VectorFeatures = vectorFeature;
