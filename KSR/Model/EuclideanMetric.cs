@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace KSR.Model
 {
-    public class Metrics
+    public class EuclideanMetric
     {
-        public static void EuclideanMetric(List<List<Reuter>> AllReuters)
+        public static Task CalculateAsync(List<List<Reuter>> AllReuters)
+        {
+            return Task.Factory.StartNew(() => Calculate(AllReuters));
+        }
+        public static void Calculate(List<List<Reuter>> AllReuters)
         {
             List<Dictionary<string, double>> TrainingVectors = new List<Dictionary<string, double>>();
             List<Dictionary<string, double>> TestVectors = new List<Dictionary<string, double>>();

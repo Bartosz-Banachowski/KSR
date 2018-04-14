@@ -81,27 +81,24 @@ namespace KSR.ViewModel
             openFileDialog.Multiselect = true;
             openFileDialog.ShowDialog();
             string[] path = openFileDialog.FileNames;
-            ChooseExtract(path);
+            ChooseExtract(path);  
         }
 
         public async void ChooseExtract(string[] path)
         {
-            if (ChosenExtractFeature == "1 Extract Feature")
-            {
-                Reuters = await Model.Reuter.GetReutersFromFileAsync(path);
-                AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSet, Reuters);
-                var xd = AllReuters.ElementAt(0).ElementAt(0).VectorFeatures.ElementAt(0).Value;
-                Metrics.EuclideanMetric(AllReuters);
+            Reuters = await Model.Reuter.GetReutersFromFileAsync(path);
+            AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSet, Reuters);
 
+            if (ChosenExtractFeature == "Euclidean Metric")
+            {
+                await EuclideanMetric.CalculateAsync(AllReuters);
                 MessageBox.Show("Done");
             }
-            else if (ChosenExtractFeature == "2 Extract Feature")
-                MessageBox.Show("Not implemented yet");
-        }
-
-        public void SetTrainingPattern()
-        {
-
+            else if (ChosenExtractFeature == "Manhattan Metric")
+            {
+                await ManhattanMetric.CalculateAsync(AllReuters);
+                MessageBox.Show("Done");
+            }
         }
         #endregion
     }

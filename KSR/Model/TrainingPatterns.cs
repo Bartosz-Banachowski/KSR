@@ -8,6 +8,11 @@ namespace KSR.Model
 {
     public class TrainingPatterns
     {
+        public static Task<List<List<Reuter>>> SetTrainingAndTestSetAsync(int Percent, List<Reuter> AllReuters)
+        {
+            return Task<List<List<Reuter>>>.Factory.StartNew(() => SetTrainingAndTestSet( Percent, AllReuters));
+        }
+
         public static List<List<Reuter>> SetTrainingAndTestSet(int PercentOfTrainingPatterns, List<Reuter> AllReuters)
         {
             double percent = (double)PercentOfTrainingPatterns / 100;

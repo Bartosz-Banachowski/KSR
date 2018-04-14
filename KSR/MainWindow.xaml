@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
-        <local1:Converter x:Key="Converter"/>
+       <!-- <local1:Converter x:Key="Converter"/> -->
     </Window.Resources>
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="330,36,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
@@ -18,8 +18,8 @@
 
         <Label Content="Choose Extract feature" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" SelectedItem="{Binding Path=ChosenExtractFeature}" Margin="144,50,0,0" VerticalAlignment="Top" Width="100" Name="Extrac_Features" RenderTransformOrigin="0.548,1.545">
-            <ComboBoxItem>1 Extract Feature</ComboBoxItem>
-            <ComboBoxItem>2 Extract Feature</ComboBoxItem>
+            <ComboBoxItem>Euclidean Metric</ComboBoxItem>
+            <ComboBoxItem>Manhattan Metric</ComboBoxItem>
         </ComboBox>
 
         <Label Content="Set % of training set" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" Width="197"/>
