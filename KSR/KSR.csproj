@@ -59,7 +59,9 @@
     </ApplicationDefinition>
     <Compile Include="Model\Converter.cs" />
     <Compile Include="Model\FeatureExtractions.cs" />
-    <Compile Include="Model\Reut.cs" />
+    <Compile Include="Model\Metrics.cs" />
+    <Compile Include="Model\Reuter.cs" />
+    <Compile Include="Model\TrainingPatterns.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\MyViewModel.cs" />
     <Page Include="MainWindow.xaml">

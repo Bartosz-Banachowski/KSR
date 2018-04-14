@@ -8,12 +8,12 @@ namespace KSR.Model
 {
     public class FeatureExtractions
     {
-        public static Task HowManyWordsExtractorAsync(Reut reut)
+        public static Task HowManyWordsExtractorAsync(Reuter reut)
         {
             return Task.Factory.StartNew(() => HowManyWordsExtractor(reut));
         }
 
-        public static void HowManyWordsExtractor(Reut reut)
+        public static void HowManyWordsExtractor(Reuter reut)
         {
             int howManyTimeWordOccur = 0;
             Dictionary<string, double> vectorFeature = new Dictionary<string, double>();
@@ -30,8 +30,8 @@ namespace KSR.Model
                 if (vectorFeature.ContainsKey(reut.Text.ElementAt(i))) continue;
                 if (reut.Text.ElementAt(i) == "") continue;
                 vectorFeature.Add(reut.Text.ElementAt(i), (double)howManyTimeWordOccur / reut.Text.Count);
-                reut.VectorFeatures = vectorFeature;
             }
+            reut.VectorFeatures = vectorFeature;
         }
     }
 }
