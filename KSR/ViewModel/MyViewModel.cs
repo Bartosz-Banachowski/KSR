@@ -33,13 +33,14 @@ namespace KSR.ViewModel
         #endregion
 
         #region Private
-        private List<Reut> reuters;
+        private List<Reuter> reuters;
         private string chosenExtractFeature;
         private string trainingSetString;
+        private List<List<Reuter>> allReuters;
         #endregion
 
         #region Properties
-        public List<Reut> Reuters
+        public List<Reuter> Reuters
         {
             get { return reuters; }
             set { this.reuters = value; }
@@ -64,6 +65,12 @@ namespace KSR.ViewModel
         {
             get { return int.Parse(TrainingSetString); }
         }
+
+        public List<List<Reuter>> AllReuters
+        {
+            get { return allReuters; }
+            set { this.allReuters = value; }
+        }
         #endregion
 
         #region Functions
@@ -81,11 +88,20 @@ namespace KSR.ViewModel
         {
             if (ChosenExtractFeature == "1 Extract Feature")
             {
-                Reuters = await Reut.GetReutersFromFileAsync(path);
+                Reuters = await Model.Reuter.GetReutersFromFileAsync(path);
+                AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSet, Reuters);
+                var xd = AllReuters.ElementAt(0).ElementAt(0).VectorFeatures.ElementAt(0).Value;
+                Metrics.EuclideanMetric(AllReuters);
+
                 MessageBox.Show("Done");
             }
             else if (ChosenExtractFeature == "2 Extract Feature")
                 MessageBox.Show("Not implemented yet");
+        }
+
+        public void SetTrainingPattern()
+        {
+
         }
         #endregion
     }
