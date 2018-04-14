@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace KSR.ViewModel
@@ -33,6 +34,8 @@ namespace KSR.ViewModel
 
         #region Private
         private List<Reut> reuters;
+        private string chosenExtractFeature;
+        private string trainingSetString;
         #endregion
 
         #region Properties
@@ -41,17 +44,48 @@ namespace KSR.ViewModel
             get { return reuters; }
             set { this.reuters = value; }
         }
+
+        public string ChosenExtractFeature
+        {
+            get { return chosenExtractFeature; }
+            set { this.chosenExtractFeature = value;
+                chosenExtractFeature = chosenExtractFeature.Substring(38, chosenExtractFeature.Length - 38);
+            }
+        }
+
+        public string TrainingSetString
+        {
+            get { return trainingSetString; }
+            set { this.trainingSetString = value;
+            }
+        }
+
+        public int TrainingSet
+        {
+            get { return int.Parse(TrainingSetString); }
+        }
         #endregion
 
         #region Functions
-        private async void LoadReuters()
+        private void LoadReuters()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Sgm File(*.sgm)| *.sgm";
             openFileDialog.Multiselect = true;
             openFileDialog.ShowDialog();
             string[] path = openFileDialog.FileNames;
-            Reuters = await Reut.GetReutersFromFileAsync(path);
+            ChooseExtract(path);
+        }
+
+        public async void ChooseExtract(string[] path)
+        {
+            if (ChosenExtractFeature == "1 Extract Feature")
+            {
+                Reuters = await Reut.GetReutersFromFileAsync(path);
+                MessageBox.Show("Done");
+            }
+            else if (ChosenExtractFeature == "2 Extract Feature")
+                MessageBox.Show("Not implemented yet");
         }
         #endregion
     }

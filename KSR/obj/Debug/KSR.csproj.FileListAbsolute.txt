@@ -34,3 +34,4 @@ D:\Studia\KSR\KSR\KSR\obj\Debug\KSR.csproj.GenerateResource.Cache
 D:\Studia\KSR\KSR\KSR\obj\Debug\KSR.csproj.CoreCompileInputs.cache
 D:\Studia\KSR\KSR\KSR\obj\Debug\KSR.exe
 D:\Studia\KSR\KSR\KSR\obj\Debug\KSR.pdb
+D:\Studia\KSR\KSR\KSR\obj\Debug\GeneratedInternalTypeHelper.g.cs
