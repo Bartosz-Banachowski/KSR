@@ -23,6 +23,7 @@ namespace KSR.Model
         public static List<Reuter> GetReutersFromFile(string[] reutPath)
         {
             List<Reuter> reuters = new List<Reuter>();
+            List<Reuter> result = new List<Reuter>();
             int reutersNumber = reutPath.Length;
             for (int i = 0; i < reutersNumber; i++)
             {
@@ -38,17 +39,20 @@ namespace KSR.Model
                         ).First()
                 }).ToList());
             }
-            for (int i = 0; i < reuters.Count; i++)
+            int howManyReuters = reuters.Count;
+
+            for (int i = 0; i < howManyReuters; i++)
             {
                 if (reuters.ElementAt(i).Places.Count != 1)
                 {
-                    reuters.Remove(reuters.ElementAt(i));
+                    continue;
                 }
-                //reuters.ElementAt(i).TextTemp = reuters.ElementAt(i).TextTemp.Replace("    ", " ");
-                reuters.ElementAt(i).Text = reuters.ElementAt(i).TextTemp.Split(' ', '\n', '\t').ToList();
-                FeatureExtractions.HowManyWordsExtractor(reuters.ElementAt(i));
+                result.Add(new Reuter { Places = reuters.ElementAt(i).Places, TextTemp = reuters.ElementAt(i).TextTemp });
+                result.Last().TextTemp = result.Last().TextTemp.Replace("    ", " ");
+                result.Last().Text = result.Last().TextTemp.Split(' ', '\n', '\t').ToList();
+                FeatureExtractions.HowManyWordsExtractor(result.Last());
             }
-            return reuters;
+            return result;
         }
     }
 }
