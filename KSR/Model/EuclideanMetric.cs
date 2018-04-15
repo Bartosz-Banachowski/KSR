@@ -8,50 +8,56 @@ namespace KSR.Model
 {
     public class EuclideanMetric
     {
-        public static Task CalculateAsync(List<List<Reuter>> AllReuters)
+        public static Task<List<TestVectorAndTrainingVectorsCollection>> CalculateAsync(List<List<Reuter>> AllReuters)
         {
-            return Task.Factory.StartNew(() => Calculate(AllReuters));
+            return Task<List<TestVectorAndTrainingVectorsCollection>>.Factory.StartNew(() => Calculate(AllReuters));
         }
-        public static void Calculate(List<List<Reuter>> AllReuters)
+        public static List<TestVectorAndTrainingVectorsCollection> Calculate(List<List<Reuter>> AllReuters)
         {
-            List<Dictionary<string, double>> TrainingVectors = new List<Dictionary<string, double>>();
-            List<Dictionary<string, double>> TestVectors = new List<Dictionary<string, double>>();
+            List<Reuter> TrainingVectors = new List<Reuter>();
+            List<Reuter> TestVectors = new List<Reuter>();
 
-            for (int i=0; i < AllReuters.ElementAt(0).Count; i++)
+            for (int i = 0; i < AllReuters.ElementAt(0).Count; i++)
             {
-                TrainingVectors.Add(AllReuters.ElementAt(0).ElementAt(i).VectorFeatures);
+                TrainingVectors.Add(AllReuters.ElementAt(0).ElementAt(i));
             }
-            for (int i=0; i < AllReuters.ElementAt(1).Count; i++)
+            for (int i = 0; i < AllReuters.ElementAt(1).Count; i++)
             {
-                TestVectors.Add(AllReuters.ElementAt(1).ElementAt(i).VectorFeatures);
+                TestVectors.Add(AllReuters.ElementAt(1).ElementAt(i));
             }
-           // Dictionary<Dictionary<string, double>, List<double>>
-            List<double> res = CalculateEuclideanMetricForOneTestSet(TestVectors.ElementAt(0), TrainingVectors);
+            List<TestVectorAndTrainingVectorsCollection> result = new List<TestVectorAndTrainingVectorsCollection>();
+            for (int i = 0; i < TestVectors.Count; i++)
+            {
+                result.Add(CalculateEuclideanMetricForOneTestSet(TestVectors.ElementAt(i), TrainingVectors));
+            }
+            return result;
         }
 
-        public static List<Double> CalculateEuclideanMetricForOneTestSet(Dictionary<string,double> testSet, List<Dictionary<string,double>> TrainingVectors)
+        public static TestVectorAndTrainingVectorsCollection CalculateEuclideanMetricForOneTestSet(Reuter testSet, List<Reuter> TrainingVectors)
         {
             double xn = 0;
             double yn = 0;
             double underSqrt = 0;
-            List<double> result = new List<double>();
+            TestVectorAndTrainingVectorsCollection result = new TestVectorAndTrainingVectorsCollection();
             for (int i = 0; i < TrainingVectors.Count; i++) //wykonujemy petle dla kazdego wzorca treningowego
             {
-                for (int j = 0; j < testSet.Count; j++) //sprawdzamy dla kazdego slowa z wektora testowego czy istnieje takie slowo w wektorze treningowym
+                foreach (var word in testSet.VectorFeatures) //sprawdzamy dla kazdego slowa z wektora testowego czy istnieje takie slowo w wektorze treningowym
                 {
-                    if (TrainingVectors.ElementAt(i).ContainsKey(testSet.ElementAt(j).Key))
+                    if (TrainingVectors.ElementAt(i).VectorFeatures.ContainsKey(word.Key))
                     {
-                        yn = TrainingVectors.ElementAt(i)[testSet.ElementAt(j).Key];
+                        yn = TrainingVectors.ElementAt(i).VectorFeatures[word.Key];
                     } else
                     {
                         yn = 0;
                     }
-                    xn = testSet.ElementAt(j).Value;
+                    xn = word.Value;
                     underSqrt += Math.Pow(xn - yn, 2);
                 }
-                result.Add(Math.Sqrt(underSqrt));
+                result.TestReuter = testSet;
+                TrainingVectors.ElementAt(i).HowFar = Math.Sqrt(underSqrt);
                 underSqrt = 0;
             }
+            result.TrainingReuters = TrainingVectors;
             return result;
         }
     }

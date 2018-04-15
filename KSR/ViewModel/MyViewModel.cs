@@ -115,17 +115,19 @@ namespace KSR.ViewModel
             AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSetPercent, Reuters);
             if (ChosenMetricFeature.Equals("Euclidean Metric"))
             {
-                await EuclideanMetric.CalculateAsync(AllReuters);
+                var sd = await EuclideanMetric.CalculateAsync(AllReuters);
                 MessageBox.Show("Done");
             }
             else if (ChosenMetricFeature.Equals("Manhattan Metric"))
             {
+                //Dictionary<string, double> d1 = new Dictionary<string, double> { {"a",1 }, {"b",2 }, {"c",3 }, {"d",4 } };
+
+                //foreach(var item in d1)
+                //{
+                //    var l = item.Key;
+                //}
+
                 var sd = await ManhattanMetric.CalculateAsync(AllReuters);
-
-                var l1 = sd.ElementAt(0).TrainingReuters;
-                var l2 = sd.ElementAt(1).TrainingReuters;
-
-                var a = l1.SequenceEqual(l2);
 
                 MessageBox.Show("Done");
             }

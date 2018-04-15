@@ -10,7 +10,7 @@ namespace KSR.Model
     {
         public static Task<List<TestVectorAndTrainingVectorsCollection>> CalculateAsync(List<List<Reuter>> AllReuters)
         {
-            return Task.Factory.StartNew(() => Calculate(AllReuters));
+            return Task<List<TestVectorAndTrainingVectorsCollection>>.Factory.StartNew(() => Calculate(AllReuters));
         }
         public static List<TestVectorAndTrainingVectorsCollection> Calculate(List<List<Reuter>> AllReuters)
         {
