@@ -26,5 +26,7 @@ namespace KSR
             InitializeComponent();
             DataContext = new MyViewModel();
         }
+
+    
     }
 }

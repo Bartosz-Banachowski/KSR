@@ -8,14 +8,15 @@ namespace KSR.Model
 {
     public class ManhattanMetric
     {
-        public static Task<List<TestVectorAndTrainingVectorsCollection>> CalculateAsync(List<List<Reuter>> AllReuters)
+        public static Task<double> CalculateAsync(List<List<Reuter>> AllReuters, int k)
         {
-            return Task<List<TestVectorAndTrainingVectorsCollection>>.Factory.StartNew(() => Calculate(AllReuters));
+            return Task<double>.Factory.StartNew(() => Calculate(AllReuters,k));
         }
-        public static List<TestVectorAndTrainingVectorsCollection> Calculate(List<List<Reuter>> AllReuters)
+        public static double Calculate(List<List<Reuter>> AllReuters, int k)
         {
             List<Reuter> TrainingVectors = new List<Reuter>();
             List<Reuter> TestVectors = new List<Reuter>();
+            double IsPlacesFoundList = 0;
 
             for (int i = 0; i < AllReuters.ElementAt(0).Count; i++)
             {
@@ -25,15 +26,17 @@ namespace KSR.Model
             {
                 TestVectors.Add(AllReuters.ElementAt(1).ElementAt(i));
             }
-            List<TestVectorAndTrainingVectorsCollection> result = new List<TestVectorAndTrainingVectorsCollection>();
             for (int i = 0; i < TestVectors.Count; i++)
             {
-                result.Add(CalculateManhattanMetricForOneTestSet(TestVectors.ElementAt(i), TrainingVectors));
+                if(CalculateManhattanMetricForOneTestSet(TestVectors.ElementAt(i), TrainingVectors, k))
+                {
+                    IsPlacesFoundList++;
+                }
             }
-            return result;
+            return IsPlacesFoundList/TestVectors.Count;
         }
 
-        public static TestVectorAndTrainingVectorsCollection CalculateManhattanMetricForOneTestSet(Reuter testSet, List<Reuter> TrainingVectors)
+        public static bool CalculateManhattanMetricForOneTestSet(Reuter testSet, List<Reuter> TrainingVectors, int k)
         {
             double xn = 0;
             double yn = 0;
@@ -59,7 +62,7 @@ namespace KSR.Model
                 underSqrt = 0;
             }
             result.TrainingReuters = TrainingVectors;
-            return result;
+            return KnnAlgorithm.Calculate(result, k);
         }
     }
 }
