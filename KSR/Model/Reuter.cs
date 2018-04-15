@@ -15,12 +15,12 @@ namespace KSR.Model
         public string TextTemp { get; set; }
         public Dictionary<string, double> VectorFeatures;
 
-        public static Task<List<Reuter>> GetReutersFromFileAsync(string[] reutPath)
+        public static Task<List<Reuter>> GetReutersFromFileAsync(string[] reutPath, string extract)
         {
-            return Task<List<Reuter>>.Factory.StartNew(() => GetReutersFromFile(reutPath));
+            return Task<List<Reuter>>.Factory.StartNew(() => GetReutersFromFile(reutPath,extract));
         }
 
-        public static List<Reuter> GetReutersFromFile(string[] reutPath)
+        public static List<Reuter> GetReutersFromFile(string[] reutPath, string extract)
         {
             List<Reuter> reuters = new List<Reuter>();
             List<Reuter> result = new List<Reuter>();
@@ -50,9 +50,25 @@ namespace KSR.Model
                 result.Add(new Reuter { Places = reuters.ElementAt(i).Places, TextTemp = reuters.ElementAt(i).TextTemp });
                 result.Last().TextTemp = result.Last().TextTemp.Replace("    ", " ");
                 result.Last().Text = result.Last().TextTemp.Split(' ', '\n', '\t').ToList();
-                FeatureExtractions.HowManyWordsExtractor(result.Last());
+                if(extract.Equals("How many words"))
+                {
+                    HowManyWords(result);
+                }
+                else if (extract.Equals("Inverse document frequency"))
+                {
+                    InverseDocument(result,i);//tu nie wiem do konca jakie argumenty ma podawac
+                }
             }
             return result;
+        }
+
+        public static void HowManyWords(List<Reuter> result)
+        {
+            FeatureExtractions.HowManyWordsExtractor(result.Last());
+        }
+        public static void InverseDocument(List<Reuter> result, int i)
+        {
+            FeatureExtractions.InverseDocumentFrequency(result, i);
         }
     }
 }

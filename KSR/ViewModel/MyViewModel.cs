@@ -34,8 +34,11 @@ namespace KSR.ViewModel
 
         #region Private
         private List<Reuter> reuters;
+        private string chosenMetricFeature;
         private string chosenExtractFeature;
         private string trainingSetString;
+        private string k;
+        private int _k;
         private List<List<Reuter>> allReuters;
         #endregion
 
@@ -46,10 +49,20 @@ namespace KSR.ViewModel
             set { this.reuters = value; }
         }
 
+        public string ChosenMetricFeature
+        {
+            get { return chosenMetricFeature; }
+            set { this.chosenMetricFeature = value;
+                chosenMetricFeature = chosenMetricFeature.Substring(38, chosenMetricFeature.Length - 38);
+            }
+        }
+
         public string ChosenExtractFeature
         {
             get { return chosenExtractFeature; }
-            set { this.chosenExtractFeature = value;
+            set
+            {
+                this.chosenExtractFeature = value;
                 chosenExtractFeature = chosenExtractFeature.Substring(38, chosenExtractFeature.Length - 38);
             }
         }
@@ -71,6 +84,17 @@ namespace KSR.ViewModel
             get { return allReuters; }
             set { this.allReuters = value; }
         }
+
+        public string K
+        {
+            get { return k; }
+            set { this.k = value;
+                _k = int.Parse(K);
+            }
+        }
+
+        public int getK
+        { get { return _k; } }
         #endregion
 
         #region Functions
@@ -86,15 +110,14 @@ namespace KSR.ViewModel
 
         public async void ChooseExtract(string[] path)
         {
-            Reuters = await Model.Reuter.GetReutersFromFileAsync(path);
+            Reuters = await Model.Reuter.GetReutersFromFileAsync(path, ChosenExtractFeature);
             AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSetPercent, Reuters);
-
-            if (ChosenExtractFeature.Equals("Euclidean Metric"))
+            if (ChosenMetricFeature.Equals("Euclidean Metric"))
             {
                 await EuclideanMetric.CalculateAsync(AllReuters);
                 MessageBox.Show("Done");
             }
-            else if (ChosenExtractFeature.Equals("Manhattan Metric"))
+            else if (ChosenMetricFeature.Equals("Manhattan Metric"))
             {
                 await ManhattanMetric.CalculateAsync(AllReuters);
                 MessageBox.Show("Done");
