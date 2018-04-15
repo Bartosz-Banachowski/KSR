@@ -61,7 +61,7 @@ namespace KSR.ViewModel
             }
         }
 
-        public int TrainingSet
+        public int TrainingSetPercent
         {
             get { return int.Parse(TrainingSetString); }
         }
@@ -87,7 +87,7 @@ namespace KSR.ViewModel
         public async void ChooseExtract(string[] path)
         {
             Reuters = await Model.Reuter.GetReutersFromFileAsync(path);
-            AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSet, Reuters);
+            AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSetPercent, Reuters);
 
             if (ChosenExtractFeature.Equals("Euclidean Metric"))
             {
