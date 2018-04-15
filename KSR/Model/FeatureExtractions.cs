@@ -24,8 +24,7 @@ namespace KSR.Model
             {
                 for(int j = 0; j < reut.Text.Count; j++)
                 {
-                    if (j == i) continue;
-                    else if (reut.Text.ElementAt(i) == reut.Text.ElementAt(j))
+                    if (reut.Text.ElementAt(i) == reut.Text.ElementAt(j))
                     {
                         howManyTimeWordOccur++;
                     }

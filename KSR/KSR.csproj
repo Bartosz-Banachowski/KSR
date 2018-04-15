@@ -62,6 +62,7 @@
     <Compile Include="Model\EuclideanMetric.cs" />
     <Compile Include="Model\ManhattanMetric.cs" />
     <Compile Include="Model\Reuter.cs" />
+    <Compile Include="Model\TestVectorAndTrainingVectorsCollection.cs" />
     <Compile Include="Model\TrainingPatterns.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\MyViewModel.cs" />

@@ -10,6 +10,7 @@ namespace KSR.Model
 {
     public class Reuter
     {
+        public double HowFar { get; set; }
         public List<string> Places { get; set; }
         public List<string> Text { get; set; }
         public string TextTemp { get; set; }

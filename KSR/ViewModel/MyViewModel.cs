@@ -74,7 +74,7 @@ namespace KSR.ViewModel
             }
         }
 
-        public int TrainingSet
+        public int TrainingSetPercent
         {
             get { return int.Parse(TrainingSetString); }
         }
@@ -111,7 +111,7 @@ namespace KSR.ViewModel
         public async void ChooseExtract(string[] path)
         {
             Reuters = await Model.Reuter.GetReutersFromFileAsync(path,ChosenExtractFeature);
-            AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSet, Reuters);
+            AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSetPercent, Reuters);
             if (ChosenMetricFeature.Equals("Euclidean Metric"))
             {
                 await EuclideanMetric.CalculateAsync(AllReuters);
@@ -119,7 +119,13 @@ namespace KSR.ViewModel
             }
             else if (ChosenMetricFeature.Equals("Manhattan Metric"))
             {
-                await ManhattanMetric.CalculateAsync(AllReuters);
+                var sd = await ManhattanMetric.CalculateAsync(AllReuters);
+
+                var l1 = sd.ElementAt(0).TrainingReuters;
+                var l2 = sd.ElementAt(1).TrainingReuters;
+
+                var a = l1.SequenceEqual(l2);
+
                 MessageBox.Show("Done");
             }
         }
