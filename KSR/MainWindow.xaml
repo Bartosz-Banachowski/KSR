@@ -16,8 +16,8 @@
         <Label Content="Choose files" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Button Content="Load Files" Command="{Binding Load_Files}" HorizontalAlignment="Left" Margin="143,16,0,0" VerticalAlignment="Top" Width="100" />
 
-        <Label Content="Choose Extract feature" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" SelectedItem="{Binding Path=ChosenExtractFeature}" Margin="144,50,0,0" VerticalAlignment="Top" Width="100" Name="Extrac_Features" RenderTransformOrigin="0.548,1.545">
+        <Label Content="Choose Metric" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" SelectedItem="{Binding Path=ChosenMetricFeature}" Margin="144,50,0,0" VerticalAlignment="Top" Width="100" Name="Extrac_Features" RenderTransformOrigin="0.548,1.545">
             <ComboBoxItem>Euclidean Metric</ComboBoxItem>
             <ComboBoxItem>Manhattan Metric</ComboBoxItem>
         </ComboBox>
@@ -26,6 +26,16 @@
         <Slider Value="{Binding TrainingSetString}"  TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="10" Minimum="0" Name="TrainingSliderValue" Maximum="100" HorizontalAlignment="Left" Margin="144,88,0,0" VerticalAlignment="Top" Width="152"/>
         <TextBox Text="{Binding ElementName=TrainingSliderValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="22" Margin="301,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27"/>
         <Label Content="%" HorizontalAlignment="Left" Margin="328,88,0,0" VerticalAlignment="Top" Width="19"/>
+        
+        <Label Content="Choose Extract feature" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top"/>
+        <ComboBox SelectedItem="{Binding Path=ChosenExtractFeature}" HorizontalAlignment="Left" Margin="144,131,0,0" VerticalAlignment="Top" Width="100">
+            <ComboBoxItem>How many words</ComboBoxItem>
+            <ComboBoxItem>Inverse document frequency</ComboBoxItem>
+        </ComboBox>
+        
+        <Label Content="How many neighbours" HorizontalAlignment="Left" Margin="10,183,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="145,183,0,0" TextWrapping="Wrap" Text="{Binding K}" VerticalAlignment="Top" Width="99"/>
+
         <!--  <Label Content="Set % of test set" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top"/>
         <Slider  Value="{Binding ElementName=TrainingSliderValue, Path=Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource Converter}}"  TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="10" Minimum="0" Name="TestSliderValue" Maximum="100" HorizontalAlignment="Left" Margin="143,117,0,0" VerticalAlignment="Top" Width="153"/>
         <TextBox Text="{Binding ElementName=TestSliderValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="301,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="29"/>
