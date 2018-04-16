@@ -57,7 +57,8 @@ namespace KSR.Model
                 }
                 else if (extract.Equals("Inverse document frequency"))
                 {
-                    InverseDocument(result,i);//tu nie wiem do konca jakie argumenty ma podawac
+                    InverseDocument(reuters, result);
+                    break;
                 }
             }
             return result;
@@ -67,9 +68,9 @@ namespace KSR.Model
         {
             FeatureExtractions.HowManyWordsExtractor(result.Last());
         }
-        public static void InverseDocument(List<Reuter> result, int i)
+        public static void InverseDocument(List<Reuter> reuters, List<Reuter> result)
         {
-            FeatureExtractions.InverseDocumentFrequency(result, i);
+            FeatureExtractions.InverseDocumentFrequency(reuters, result);
         }
     }
 }

@@ -38,40 +38,43 @@ namespace KSR.Model
         }
 
         //Inverse document frequency
-        public static void InverseDocumentFrequency(List<Reuter> reuters, int NumberOfWords)
+        public static void InverseDocumentFrequency(List<Reuter> reuters, List<Reuter> result)
         {
-            int howManyDocumentsContainkeyword = 0;
+            double howManyDocumentsContainkeyword = 0;
 
+            result.Clear();
             for (int i = 0; i < reuters.Count; i++)
             {
                 if (reuters.ElementAt(i).Places.Count != 1)
                 {
-                    reuters.Remove(reuters.ElementAt(i));
+                    continue;
                 }
-                //reuters.ElementAt(i).TextTemp = reuters.ElementAt(i).TextTemp.Replace("    ", " ");
-                reuters.ElementAt(i).Text = reuters.ElementAt(i).TextTemp.Split(' ', '\n', '\t').ToList();
-                FeatureExtractions.HowManyWordsExtractor(reuters.ElementAt(i));
+                result.Add(new Reuter { Places = reuters.ElementAt(i).Places, TextTemp = reuters.ElementAt(i).TextTemp });
+                result.Last().TextTemp = result.Last().TextTemp.Replace("    ", " ");
+                result.Last().Text = result.Last().TextTemp.Split(' ', '\n', '\t').ToList();
+                FeatureExtractions.HowManyWordsExtractor(result.Last());
             }
 
-            foreach (Reuter r in reuters)
+            foreach (Reuter r in result)
             {
                 r.VectorFeatures = r.VectorFeatures.OrderBy(x => x.Value)
-                    .Take(NumberOfWords)
+                    .Take(10)
                     .ToDictionary(pair => pair.Key, pair => pair.Value);
             }
 
-            for (int i = 0; i < reuters.Count; ++i)
+            for (int i = 0; i < result.Count; ++i)
             {
-                for(int j = 0; j < reuters[i].VectorFeatures.Count; ++j)
+                for(int j = 0; j < result[i].VectorFeatures.Count; ++j)
                 {
-                    foreach(Reuter r in reuters)
+                    foreach(Reuter r in result)
                     {
-                        if(r.Text.Contains(reuters[i].VectorFeatures.Keys.ElementAt(j)))
+                        if(r.Text.Contains(result[i].VectorFeatures.Keys.ElementAt(j)))
                         {
                             howManyDocumentsContainkeyword++;
                         }
                     }
-                    reuters[i].VectorFeatures[reuters[i].VectorFeatures.Keys.ElementAt(j)] = Math.Log10(reuters.Count/howManyDocumentsContainkeyword);
+                    double tempDiff = (double)result.Count/howManyDocumentsContainkeyword;
+                    result[i].VectorFeatures[result[i].VectorFeatures.Keys.ElementAt(j)] = Math.Log10(tempDiff);
                     howManyDocumentsContainkeyword = 0;
                 }
             }

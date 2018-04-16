@@ -126,8 +126,8 @@ namespace KSR.ViewModel
         public async void ChooseExtract(string[] path)
         {
             Reuters = await Model.Reuter.GetReutersFromFileAsync(path, ChosenExtractFeature);
-
             AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSetPercent, Reuters);
+
             if (ChosenMetricFeature.Equals("Euclidean Metric"))
             {
                 var sd = await EuclideanMetric.CalculateAsync(AllReuters);

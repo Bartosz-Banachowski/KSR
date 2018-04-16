@@ -10,15 +10,12 @@ namespace KSR.Model
     {
         public static bool Calculate(TestVectorAndTrainingVectorsCollection item, int k)
         {
-            //for(int i=0; i<list.Count; i++)
-            //{
             return ChooseKNeighbours(item, k);
-           // }
         }
 
         public static bool ChooseKNeighbours(TestVectorAndTrainingVectorsCollection TestAndTrainingPair, int k)
         {
-             TestAndTrainingPair.TrainingReuters = TestAndTrainingPair.TrainingReuters.OrderBy(h => h.HowFar).ToList(); //sorted list
+            TestAndTrainingPair.TrainingReuters = TestAndTrainingPair.TrainingReuters.OrderBy(h => h.HowFar).ToList(); //sorted list
             var Kneighbours = TestAndTrainingPair.TrainingReuters.Take(k).ToList(); // take k neighbours
             return ChoosePlace(Kneighbours, TestAndTrainingPair.TestReuter); ;
         }

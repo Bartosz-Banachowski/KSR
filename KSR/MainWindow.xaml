@@ -35,7 +35,7 @@
         
         <Label Content="How many neighbours" HorizontalAlignment="Left" Margin="10,183,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="145,183,0,0" TextWrapping="Wrap" Text="{Binding K}" VerticalAlignment="Top" Width="99"/>
-        <Label Content="% of matched" HorizontalAlignment="Left" Margin="20,237,0,0" VerticalAlignment="Top"/>
+        <Label Content="% of match&#xD;&#xA;" HorizontalAlignment="Left" Margin="20,237,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="143,237,0,0" TextWrapping="Wrap" Text="{Binding Percent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="101" />
 
         <!--  <Label Content="Set % of test set" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top"/>
