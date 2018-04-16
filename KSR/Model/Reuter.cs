@@ -51,7 +51,7 @@ namespace KSR.Model
                 result.Add(new Reuter { Places = reuters.ElementAt(i).Places, TextTemp = reuters.ElementAt(i).TextTemp });
                 result.Last().TextTemp = result.Last().TextTemp.Replace("    ", " ");
                 result.Last().Text = result.Last().TextTemp.Split(' ', '\n', '\t').ToList();
-                if(extract.Equals("How many words"))
+                if(extract.Equals("Term frequency"))
                 {
                     HowManyWords(result);
                 }
