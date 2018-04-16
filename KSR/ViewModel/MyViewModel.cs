@@ -130,7 +130,8 @@ namespace KSR.ViewModel
             AllReuters = TrainingPatterns.SetTrainingAndTestSet(TrainingSetPercent, Reuters);
             if (ChosenMetricFeature.Equals("Euclidean Metric"))
             {
-                var sd = await EuclideanMetric.CalculateAsync(AllReuters);
+                _percent =  await EuclideanMetric.CalculateAsync(AllReuters, getK);
+                Percent = (Math.Round(_percent, 2) * 100).ToString();
                 MessageBox.Show("Done");
             }
             else if (ChosenMetricFeature.Equals("Manhattan Metric"))

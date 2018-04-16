@@ -57,7 +57,7 @@ namespace KSR.Model
                 }
                 else if (extract.Equals("Inverse document frequency"))
                 {
-                    InverseDocument(result,i);//tu nie wiem do konca jakie argumenty ma podawac
+                    InverseDocument(result,10);//tu nie wiem do konca jakie argumenty ma podawac
                 }
             }
             return result;
