@@ -32,10 +32,10 @@ namespace KSR.Model
                 {
                     IsPlacesFoundList++;
                 }
+           
             }
             return IsPlacesFoundList/TestVectors.Count;
         }
-
         public static bool CalculateManhattanMetricForOneTestSet(Reuter testSet, List<Reuter> TrainingVectors, int k)
         {
             double xn = 0;
