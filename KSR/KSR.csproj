@@ -60,6 +60,7 @@
     <Compile Include="Model\Converter.cs" />
     <Compile Include="Model\FeatureExtractions.cs" />
     <Compile Include="Model\EuclideanMetric.cs" />
+    <Compile Include="Model\KnnAlgorithm.cs" />
     <Compile Include="Model\ManhattanMetric.cs" />
     <Compile Include="Model\Reuter.cs" />
     <Compile Include="Model\TestVectorAndTrainingVectorsCollection.cs" />

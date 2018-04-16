@@ -39,6 +39,8 @@ namespace KSR.ViewModel
         private string trainingSetString;
         private string k;
         private int _k;
+        private string percent;
+        private double _percent;
         private List<List<Reuter>> allReuters;
         #endregion
 
@@ -94,7 +96,20 @@ namespace KSR.ViewModel
         }
 
         public int getK
-        { get { return _k; } }
+        {
+            get { return _k; }
+        }
+
+        public string Percent
+        {
+            get { return percent; }
+            set {
+                this.percent = value;
+                RaisePropertyChanged("Percent");
+            }
+        }
+
+   
         #endregion
 
         #region Functions
@@ -120,15 +135,8 @@ namespace KSR.ViewModel
             }
             else if (ChosenMetricFeature.Equals("Manhattan Metric"))
             {
-                //Dictionary<string, double> d1 = new Dictionary<string, double> { {"a",1 }, {"b",2 }, {"c",3 }, {"d",4 } };
-
-                //foreach(var item in d1)
-                //{
-                //    var l = item.Key;
-                //}
-
-                var sd = await ManhattanMetric.CalculateAsync(AllReuters);
-
+                _percent = await ManhattanMetric.CalculateAsync(AllReuters,getK);
+                Percent = (Math.Round(_percent,2)*100).ToString();
                 MessageBox.Show("Done");
             }
         }
