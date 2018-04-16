@@ -28,17 +28,19 @@ namespace KSR.Model
             List<TestVectorAndTrainingVectorsCollection> result = new List<TestVectorAndTrainingVectorsCollection>();
             for (int i = 0; i < TestVectors.Count; i++)
             {
-                result.Add(CalculateManhattanMetricForOneTestSet(TestVectors.ElementAt(i), TrainingVectors));
+                TestVectorAndTrainingVectorsCollection temp = CalculateManhattanMetricForOneTestSet(TestVectors.ElementAt(i), TrainingVectors);
+                result.Add(temp);
             }
             return result;
         }
 
-        public static TestVectorAndTrainingVectorsCollection CalculateManhattanMetricForOneTestSet(Reuter testSet, List<Reuter> TrainingVectors)
+        public static TestVectorAndTrainingVectorsCollection CalculateManhattanMetricForOneTestSet(Reuter testSet, List<Reuter> TrainingVec)
         {
             double xn = 0;
             double yn = 0;
             double underSqrt = 0;
             TestVectorAndTrainingVectorsCollection result = new TestVectorAndTrainingVectorsCollection();
+            List<Reuter> TrainingVectors = new List<Reuter>(TrainingVec);
             for (int i = 0; i < TrainingVectors.Count; i++) //wykonujemy petle dla kazdego wzorca treningowego
             {
                 foreach(var word in testSet.VectorFeatures) //sprawdzamy dla kazdego slowa z wektora testowego czy istnieje takie slowo w wektorze treningowym
